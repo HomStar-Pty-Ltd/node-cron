@@ -4,7 +4,7 @@ const ScheduledTask = require('./scheduled-task');
 const BackgroundScheduledTask = require('./background-scheduled-task');
 const validation = require('./pattern-validation');
 const storage = require('./storage');
-const timeMatcher = require('./time-matcher');
+const TimeMatcher = require('./time-matcher');
 
 module.exports = (() => {
 
@@ -65,6 +65,6 @@ module.exports = (() => {
         schedule: schedule,
         validate: validate,
         getTasks: getTasks,
-        timeMatcher: timeMatcher
+        TimeMatcher: TimeMatcher
     };
 })();
