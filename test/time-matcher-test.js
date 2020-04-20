@@ -91,7 +91,7 @@ describe('TimeMatcher', () => {
             assert.isTrue(matcher.match(new Date(2018, 0, 1, 0, 6, 0)));
             assert.isFalse(matcher.match(new Date(2018, 0, 1, 0, 7, 0)));
         });
-        
+
         it('should accept multiple values for hour', () => {
             let matcher = new TimeMatcher('0 0 5,6 * * *');
             assert.isTrue(matcher.match(new Date(2018, 0, 1, 5, 0, 0)));
@@ -185,7 +185,7 @@ describe('TimeMatcher', () => {
             assert.isTrue(matcher.match(new Date(2018, 0, 1, 0, 6, 0)));
             assert.isFalse(matcher.match(new Date(2018, 0, 1, 0, 7, 0)));
         });
-        
+
         it('should accept step values for hour', () => {
             let matcher = new TimeMatcher('0 0 */2 * * *');
             assert.isTrue(matcher.match(new Date(2018, 0, 1, 2, 0, 0)));
@@ -215,7 +215,7 @@ describe('TimeMatcher', () => {
         });
     });
 
-    describe('timezone', ()=>{
+    describe.only('timezone', ()=>{
         it('should match with timezone America/Sao_Paulo', () => {
             let matcher = new TimeMatcher('0 0 0 * * *', 'America/Sao_Paulo');
             let utcTime = new Date('Thu Oct 11 2018 03:00:00Z');
@@ -225,6 +225,18 @@ describe('TimeMatcher', () => {
         it('should match with timezone Europe/Rome', () => {
             let matcher = new TimeMatcher('0 0 0 * * *', 'Europe/Rome');
             let utcTime = new Date('Thu Oct 11 2018 23:00:00Z');
+            assert.isTrue(matcher.match(utcTime));
+        });
+
+        it('should match with timezone Australia/Brisbane', () => {
+            let matcher = new TimeMatcher('* */5 * * * *', 'Australia/Brisbane');
+            let utcTime = new Date('Thu Oct 11 2018 23:05:00Z');
+            assert.isTrue(matcher.match(utcTime));
+        });
+
+        it('should match with timezone Australia/Brisbane', () => {
+            let matcher = new TimeMatcher('* 0 22 * * 1-5', 'Australia/Brisbane');
+            let utcTime = new Date('Thu Oct 11 2018 12:00:00Z');
             assert.isTrue(matcher.match(utcTime));
         });
     });

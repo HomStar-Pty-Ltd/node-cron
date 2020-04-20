@@ -4,6 +4,7 @@ const ScheduledTask = require('./scheduled-task');
 const BackgroundScheduledTask = require('./background-scheduled-task');
 const validation = require('./pattern-validation');
 const storage = require('./storage');
+const timeMatcher = require('./time-matcher');
 
 module.exports = (() => {
 
@@ -14,16 +15,16 @@ module.exports = (() => {
    * @param {string} expression - cron expression.
    * @param {Function} func - task to be executed.
    * @param {Object} options - a set of options for the scheduled task:
-   *    - scheduled <boolean>: if a schaduled task is ready and running to be 
+   *    - scheduled <boolean>: if a schaduled task is ready and running to be
    *      performed when the time mach with the cron excpression.
    *    - timezone <string>: the tiemzone to execute the tasks.
-   * 
-   *    Example: 
+   *
+   *    Example:
    *    {
    *      "scheduled": true,
    *      "timezone": "America/Sao_Paulo"
-   *    } 
-   * 
+   *    }
+   *
    * @returns {ScheduledTask} update function.
    */
     function schedule(expression, func, options) {
@@ -43,7 +44,7 @@ module.exports = (() => {
     /**
      * Check if a cron expression is valid
      * @param {string} expression - cron expression.
-     * 
+     *
      * @returns {boolean} - returns true if expression is valid
      */
     function validate(expression) {
@@ -63,6 +64,7 @@ module.exports = (() => {
     return {
         schedule: schedule,
         validate: validate,
-        getTasks: getTasks
+        getTasks: getTasks,
+        timeMatcher: timeMatcher
     };
 })();
